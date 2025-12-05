@@ -1,0 +1,25 @@
+{
+  "name": "matter-display",
+  "version": "1.0.0",
+  "description": "Script and website to display the matter devices on your network",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soothill/Matter-Display.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/soothill/Matter-Display/issues"
+  },
+  "homepage": "https://github.com/soothill/Matter-Display#readme",
+  "dependencies": {
+    "bonjour": "^3.5.0",
+    "express": "^5.2.1",
+    "nodemon": "^3.1.11"
+  }
+}

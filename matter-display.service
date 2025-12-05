@@ -1,0 +1,17 @@
+[Unit]
+Description=Matter Display Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/node /home/darren/Matter-Display/server.js
+WorkingDirectory=/home/darren/Matter-Display
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=matter-display
+User=darren
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
