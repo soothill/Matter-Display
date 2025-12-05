@@ -22,12 +22,23 @@ function renderDeviceList(devices) {
   devices.forEach((device) => {
     const row = document.createElement("tr");
     row.className = device.active ? "active" : "inactive";
-    row.innerHTML = `
-      <td>${device.name || "Unknown"}</td>
-      <td>${device.ip || "N/A"}</td>
-      <td>${device.active ? "🟢 Active" : "⚪ Inactive"}</td>
-      <td>${new Date(device.lastSeen).toLocaleString()}</td>
-    `;
+    const nameCell = document.createElement("td");
+    nameCell.textContent = device.name || "Unknown";
+
+    const ipCell = document.createElement("td");
+    ipCell.textContent = device.ip || "N/A";
+
+    const statusCell = document.createElement("td");
+    statusCell.textContent = device.active ? "🟢 Active" : "⚪ Inactive";
+
+    const lastSeenCell = document.createElement("td");
+    lastSeenCell.textContent = new Date(device.lastSeen).toLocaleString();
+
+    row.appendChild(nameCell);
+    row.appendChild(ipCell);
+    row.appendChild(statusCell);
+    row.appendChild(lastSeenCell);
+
     row.addEventListener("click", () => showDeviceDetails(device.id));
     tableBody.appendChild(row);
   });

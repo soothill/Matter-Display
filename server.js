@@ -1,9 +1,31 @@
 const express = require('express');
 const bonjour = require('bonjour')();
 const path = require('path');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
 const PORT = 3000;
+
+// Security middleware
+app.use(helmet());
+const limiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  max: 100, // limit each IP to 100 requests per minute
+});
+app.use(limiter);
+
+// Basic API key authentication
+const API_KEY = process.env.API_KEY || null;
+if (API_KEY) {
+  app.use((req, res, next) => {
+    const key = req.headers['x-api-key'];
+    if (key !== API_KEY) {
+      return res.status(403).json({ error: 'Forbidden: Invalid API key' });
+    }
+    next();
+  });
+}
 
 // Serve static frontend files
 app.use(express.static(path.join(__dirname, 'public')));
