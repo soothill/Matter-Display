@@ -114,3 +114,17 @@ app.get('/devices/:id', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Matter Display server running at http://localhost:${PORT}`);
 });
+
+// Structured logging setup
+const pino = require('pino');
+const logger = pino();
+
+process.on('uncaughtException', (err) => {
+  logger.error({ err }, 'Uncaught Exception');
+});
+
+process.on('unhandledRejection', (reason) => {
+  logger.error({ reason }, 'Unhandled Rejection');
+});
+
+module.exports = app;

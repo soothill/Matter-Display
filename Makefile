@@ -3,12 +3,13 @@ SERVICE_FILE=/etc/systemd/system/$(SERVICE_NAME).service
 LOCAL_SERVICE_FILE=matter-display.service
 
 install:
-	sed "s|/home/darren/Matter-Display|$(CURDIR)|g" $(LOCAL_SERVICE_FILE) > matter-display.tmp.service
-	sudo cp matter-display.tmp.service $(SERVICE_FILE)
-	rm matter-display.tmp.service
-	sudo systemctl daemon-reload
-	sudo systemctl enable $(SERVICE_NAME)
-	sudo systemctl start $(SERVICE_NAME)
+	@TMP_FILE=$$(mktemp /tmp/matter-display.XXXXXX.service); \
+	sed "s|/home/darren/Matter-Display|$$(printf '%s' "$(CURDIR)" | sed 's/[&/]/\\&/g')|g" $(LOCAL_SERVICE_FILE) > $$TMP_FILE; \
+	sudo cp $$TMP_FILE $(SERVICE_FILE); \
+	rm -f $$TMP_FILE; \
+	sudo systemctl daemon-reload; \
+	sudo systemctl enable $(SERVICE_NAME); \
+	sudo systemctl start $(SERVICE_NAME); \
 	@echo "Service $(SERVICE_NAME) installed and started with directory $(CURDIR)."
 
 uninstall:

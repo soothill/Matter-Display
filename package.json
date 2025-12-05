@@ -4,7 +4,8 @@
   "description": "Script and website to display the matter devices on your network",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --runInBand",
+    "audit": "npm audit --production"
   },
   "repository": {
     "type": "git",
@@ -19,7 +20,14 @@
   "homepage": "https://github.com/soothill/Matter-Display#readme",
   "dependencies": {
     "bonjour": "^3.5.0",
-    "express": "^5.2.1",
-    "nodemon": "^3.1.11"
+    "express": "^4.19.2",
+    "express-rate-limit": "^8.2.1",
+    "helmet": "^8.1.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.11",
+    "pino": "^9.3.2",
+    "supertest": "^7.1.1"
   }
 }

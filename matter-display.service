@@ -7,11 +7,19 @@ ExecStart=/usr/bin/node /home/darren/Matter-Display/server.js
 WorkingDirectory=/home/darren/Matter-Display
 Restart=always
 RestartSec=10
-StandardOutput=syslog
-StandardError=syslog
+StandardOutput=journal
+StandardError=journal
 SyslogIdentifier=matter-display
 User=darren
 Environment=NODE_ENV=production
+
+# Security hardening
+ProtectSystem=full
+ProtectHome=true
+NoNewPrivileges=true
+PrivateTmp=true
+MemoryMax=200M
+CPUQuota=50%
 
 [Install]
 WantedBy=multi-user.target
